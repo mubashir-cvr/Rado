@@ -5,7 +5,7 @@
  */
 ! function(a, b, c, d) {
     function e(b, c) {
-        this.settings = null, this.options = a.extend({}, e.Defaults, c), this.₹element = a(b), this._handlers = {}, this._plugins = {}, this._supress = {}, this._current = null, this._speed = null, this._coordinates = [], this._breakpoint = null, this._width = null, this._items = [], this._clones = [], this._mergers = [], this._widths = [], this._invalidated = {}, this._pipe = [], this._drag = {
+        this.settings = null, this.options = a.extend({}, e.Defaults, c), this.$element = a(b), this._handlers = {}, this._plugins = {}, this._supress = {}, this._current = null, this._speed = null, this._coordinates = [], this._breakpoint = null, this._width = null, this._items = [], this._clones = [], this._mergers = [], this._widths = [], this._invalidated = {}, this._pipe = [], this._drag = {
             time: null,
             target: null,
             pointer: null,
@@ -79,7 +79,7 @@
     }, e.Plugins = {}, e.Workers = [{
         filter: ["width", "settings"],
         run: function() {
-            this._width = this.₹element.width()
+            this._width = this.$element.width()
         }
     }, {
         filter: ["width", "items", "settings"],
@@ -89,7 +89,7 @@
     }, {
         filter: ["items", "settings"],
         run: function() {
-            this.₹stage.children(".cloned").remove()
+            this.$stage.children(".cloned").remove()
         }
     }, {
         filter: ["width", "items", "settings"],
@@ -102,7 +102,7 @@
                     "margin-left": d ? b : "",
                     "margin-right": d ? "" : b
                 };
-            !c && this.₹stage.children().css(e), a.css = e
+            !c && this.$stage.children().css(e), a.css = e
         }
     }, {
         filter: ["width", "items", "settings"],
@@ -130,7 +130,7 @@
                 h = "",
                 i = "";
             for (g /= 2; g--;) b.push(this.normalize(b.length / 2, !0)), h += c[b[b.length - 1]][0].outerHTML, b.push(this.normalize(c.length - 1 - (b.length - 1) / 2, !0)), i = c[b[b.length - 1]][0].outerHTML + i;
-            this._clones = b, a(h).addClass("cloned").appendTo(this.₹stage), a(i).addClass("cloned").prependTo(this.₹stage)
+            this._clones = b, a(h).addClass("cloned").appendTo(this.$stage), a(i).addClass("cloned").prependTo(this.$stage)
         }
     }, {
         filter: ["width", "items", "settings"],
@@ -148,14 +148,14 @@
                     "padding-left": a || "",
                     "padding-right": a || ""
                 };
-            this.₹stage.css(c)
+            this.$stage.css(c)
         }
     }, {
         filter: ["width", "items", "settings"],
         run: function(a) {
             var b = this._coordinates.length,
                 c = !this.settings.autoWidth,
-                d = this.₹stage.children();
+                d = this.$stage.children();
             if (c && a.items.merge)
                 for (; b--;) a.css.width = this._widths[this.relative(b)], d.eq(b).css(a.css);
             else c && (a.css.width = a.items.width, d.css(a.css))
@@ -163,12 +163,12 @@
     }, {
         filter: ["items"],
         run: function() {
-            this._coordinates.length < 1 && this.₹stage.removeAttr("style")
+            this._coordinates.length < 1 && this.$stage.removeAttr("style")
         }
     }, {
         filter: ["width", "items", "settings"],
         run: function(a) {
-            a.current = a.current ? this.₹stage.children().index(a.current) : 0, a.current = Math.max(this.minimum(), Math.min(this.maximum(), a.current)), this.reset(a.current)
+            a.current = a.current ? this.$stage.children().index(a.current) : 0, a.current = Math.max(this.minimum(), Math.min(this.maximum(), a.current)), this.reset(a.current)
         }
     }, {
         filter: ["position"],
@@ -184,14 +184,14 @@
                 h = g + this.width() * e,
                 i = [];
             for (c = 0, d = this._coordinates.length; d > c; c++) a = this._coordinates[c - 1] || 0, b = Math.abs(this._coordinates[c]) + f * e, (this.op(a, "<=", g) && this.op(a, ">", h) || this.op(b, "<", g) && this.op(b, ">", h)) && i.push(c);
-            this.₹stage.children(".active").removeClass("active"), this.₹stage.children(":eq(" + i.join("), :eq(") + ")").addClass("active"), this.settings.center && (this.₹stage.children(".center").removeClass("center"), this.₹stage.children().eq(this.current()).addClass("center"))
+            this.$stage.children(".active").removeClass("active"), this.$stage.children(":eq(" + i.join("), :eq(") + ")").addClass("active"), this.settings.center && (this.$stage.children(".center").removeClass("center"), this.$stage.children().eq(this.current()).addClass("center"))
         }
     }], e.prototype.initialize = function() {
-        if (this.enter("initializing"), this.trigger("initialize"), this.₹element.toggleClass(this.settings.rtlClass, this.settings.rtl), this.settings.autoWidth && !this.is("pre-loading")) {
+        if (this.enter("initializing"), this.trigger("initialize"), this.$element.toggleClass(this.settings.rtlClass, this.settings.rtl), this.settings.autoWidth && !this.is("pre-loading")) {
             var b, c, e;
-            b = this.₹element.find("img"), c = this.settings.nestedItemSelector ? "." + this.settings.nestedItemSelector : d, e = this.₹element.children(c).width(), b.length && 0 >= e && this.preloadAutoWidthImages(b)
+            b = this.$element.find("img"), c = this.settings.nestedItemSelector ? "." + this.settings.nestedItemSelector : d, e = this.$element.children(c).width(), b.length && 0 >= e && this.preloadAutoWidthImages(b)
         }
-        this.₹element.addClass(this.options.loadingClass), this.₹stage = a("<" + this.settings.stageElement + ' class="' + this.settings.stageClass + '"/>').wrap('<div class="' + this.settings.stageOuterClass + '"/>'), this.₹element.append(this.₹stage.parent()), this.replace(this.₹element.children().not(this.₹stage.parent())), this.₹element.is(":visible") ? this.refresh() : this.invalidate("width"), this.₹element.removeClass(this.options.loadingClass).addClass(this.options.loadedClass), this.registerEventHandlers(), this.leave("initializing"), this.trigger("initialized")
+        this.$element.addClass(this.options.loadingClass), this.$stage = a("<" + this.settings.stageElement + ' class="' + this.settings.stageClass + '"/>').wrap('<div class="' + this.settings.stageOuterClass + '"/>'), this.$element.append(this.$stage.parent()), this.replace(this.$element.children().not(this.$stage.parent())), this.$element.is(":visible") ? this.refresh() : this.invalidate("width"), this.$element.removeClass(this.options.loadingClass).addClass(this.options.loadedClass), this.registerEventHandlers(), this.leave("initializing"), this.trigger("initialized")
     }, e.prototype.setup = function() {
         var b = this.viewport(),
             c = this.options.responsive,
@@ -199,7 +199,7 @@
             e = null;
         c ? (a.each(c, function(a) {
             b >= a && a > d && (d = Number(a))
-        }), e = a.extend({}, this.options, c[d]), "function" == typeof e.stagePadding && (e.stagePadding = e.stagePadding()), delete e.responsive, e.responsiveClass && this.₹element.attr("class", this.₹element.attr("class").replace(new RegExp("(" + this.options.responsiveClass + "-)\\S+\\s", "g"), "₹1" + d))) : e = a.extend({}, this.options), this.trigger("change", {
+        }), e = a.extend({}, this.options, c[d]), "function" == typeof e.stagePadding && (e.stagePadding = e.stagePadding()), delete e.responsive, e.responsiveClass && this.$element.attr("class", this.$element.attr("class").replace(new RegExp("(" + this.options.responsiveClass + "-)\\S+\\s", "g"), "$1" + d))) : e = a.extend({}, this.options), this.trigger("change", {
             property: {
                 name: "settings",
                 value: e
@@ -233,24 +233,24 @@
                 return this._width - 2 * this.settings.stagePadding + this.settings.margin
         }
     }, e.prototype.refresh = function() {
-        this.enter("refreshing"), this.trigger("refresh"), this.setup(), this.optionsLogic(), this.₹element.addClass(this.options.refreshClass), this.update(), this.₹element.removeClass(this.options.refreshClass), this.leave("refreshing"), this.trigger("refreshed")
+        this.enter("refreshing"), this.trigger("refresh"), this.setup(), this.optionsLogic(), this.$element.addClass(this.options.refreshClass), this.update(), this.$element.removeClass(this.options.refreshClass), this.leave("refreshing"), this.trigger("refreshed")
     }, e.prototype.onThrottledResize = function() {
         b.clearTimeout(this.resizeTimer), this.resizeTimer = b.setTimeout(this._handlers.onResize, this.settings.responsiveRefreshRate)
     }, e.prototype.onResize = function() {
-        return this._items.length ? this._width === this.₹element.width() ? !1 : this.₹element.is(":visible") ? (this.enter("resizing"), this.trigger("resize").isDefaultPrevented() ? (this.leave("resizing"), !1) : (this.invalidate("width"), this.refresh(), this.leave("resizing"), void this.trigger("resized"))) : !1 : !1
+        return this._items.length ? this._width === this.$element.width() ? !1 : this.$element.is(":visible") ? (this.enter("resizing"), this.trigger("resize").isDefaultPrevented() ? (this.leave("resizing"), !1) : (this.invalidate("width"), this.refresh(), this.leave("resizing"), void this.trigger("resized"))) : !1 : !1
     }, e.prototype.registerEventHandlers = function() {
-        a.support.transition && this.₹stage.on(a.support.transition.end + ".owl.core", a.proxy(this.onTransitionEnd, this)), this.settings.responsive !== !1 && this.on(b, "resize", this._handlers.onThrottledResize), this.settings.mouseDrag && (this.₹element.addClass(this.options.dragClass), this.₹stage.on("mousedown.owl.core", a.proxy(this.onDragStart, this)), this.₹stage.on("dragstart.owl.core selectstart.owl.core", function() {
+        a.support.transition && this.$stage.on(a.support.transition.end + ".owl.core", a.proxy(this.onTransitionEnd, this)), this.settings.responsive !== !1 && this.on(b, "resize", this._handlers.onThrottledResize), this.settings.mouseDrag && (this.$element.addClass(this.options.dragClass), this.$stage.on("mousedown.owl.core", a.proxy(this.onDragStart, this)), this.$stage.on("dragstart.owl.core selectstart.owl.core", function() {
             return !1
-        })), this.settings.touchDrag && (this.₹stage.on("touchstart.owl.core", a.proxy(this.onDragStart, this)), this.₹stage.on("touchcancel.owl.core", a.proxy(this.onDragEnd, this)))
+        })), this.settings.touchDrag && (this.$stage.on("touchstart.owl.core", a.proxy(this.onDragStart, this)), this.$stage.on("touchcancel.owl.core", a.proxy(this.onDragEnd, this)))
     }, e.prototype.onDragStart = function(b) {
         var d = null;
-        3 !== b.which && (a.support.transform ? (d = this.₹stage.css("transform").replace(/.*\(|\)| /g, "").split(","), d = {
+        3 !== b.which && (a.support.transform ? (d = this.$stage.css("transform").replace(/.*\(|\)| /g, "").split(","), d = {
             x: d[16 === d.length ? 12 : 4],
             y: d[16 === d.length ? 13 : 5]
-        }) : (d = this.₹stage.position(), d = {
-            x: this.settings.rtl ? d.left + this.₹stage.width() - this.width() + this.settings.margin : d.left,
+        }) : (d = this.$stage.position(), d = {
+            x: this.settings.rtl ? d.left + this.$stage.width() - this.width() + this.settings.margin : d.left,
             y: d.top
-        }), this.is("animating") && (a.support.transform ? this.animate(d.x) : this.₹stage.stop(), this.invalidate("position")), this.₹element.toggleClass(this.options.grabClass, "mousedown" === b.type), this.speed(0), this._drag.time = (new Date).getTime(), this._drag.target = a(b.target), this._drag.stage.start = d, this._drag.stage.current = d, this._drag.pointer = this.pointer(b), a(c).on("mouseup.owl.core touchend.owl.core", a.proxy(this.onDragEnd, this)), a(c).one("mousemove.owl.core touchmove.owl.core", a.proxy(function(b) {
+        }), this.is("animating") && (a.support.transform ? this.animate(d.x) : this.$stage.stop(), this.invalidate("position")), this.$element.toggleClass(this.options.grabClass, "mousedown" === b.type), this.speed(0), this._drag.time = (new Date).getTime(), this._drag.target = a(b.target), this._drag.stage.start = d, this._drag.stage.current = d, this._drag.pointer = this.pointer(b), a(c).on("mouseup.owl.core touchend.owl.core", a.proxy(this.onDragEnd, this)), a(c).one("mousemove.owl.core touchmove.owl.core", a.proxy(function(b) {
             var d = this.difference(this._drag.pointer, this.pointer(b));
             a(c).on("mousemove.owl.core touchmove.owl.core", a.proxy(this.onDragMove, this)), Math.abs(d.x) < Math.abs(d.y) && this.is("valid") || (b.preventDefault(), this.enter("dragging"), this.trigger("drag"))
         }, this)))
@@ -265,7 +265,7 @@
         var d = this.difference(this._drag.pointer, this.pointer(b)),
             e = this._drag.stage.current,
             f = d.x > 0 ^ this.settings.rtl ? "left" : "right";
-        a(c).off(".owl.core"), this.₹element.removeClass(this.options.grabClass), (0 !== d.x && this.is("dragging") || !this.is("valid")) && (this.speed(this.settings.dragEndSpeed || this.settings.smartSpeed), this.current(this.closest(e.x, 0 !== d.x ? f : this._drag.direction)), this.invalidate("position"), this.update(), this._drag.direction = f, (Math.abs(d.x) > 3 || (new Date).getTime() - this._drag.time > 300) && this._drag.target.one("click.owl.core", function() {
+        a(c).off(".owl.core"), this.$element.removeClass(this.options.grabClass), (0 !== d.x && this.is("dragging") || !this.is("valid")) && (this.speed(this.settings.dragEndSpeed || this.settings.smartSpeed), this.current(this.closest(e.x, 0 !== d.x ? f : this._drag.direction)), this.invalidate("position"), this.update(), this._drag.direction = f, (Math.abs(d.x) > 3 || (new Date).getTime() - this._drag.time > 300) && this._drag.target.one("click.owl.core", function() {
             return !1
         })), this.is("dragging") && (this.leave("dragging"), this.trigger("dragged"))
     }, e.prototype.closest = function(b, c) {
@@ -278,12 +278,12 @@
         }, this)), this.settings.loop || (this.op(b, ">", g[this.minimum()]) ? d = b = this.minimum() : this.op(b, "<", g[this.maximum()]) && (d = b = this.maximum())), d
     }, e.prototype.animate = function(b) {
         var c = this.speed() > 0;
-        this.is("animating") && this.onTransitionEnd(), c && (this.enter("animating"), this.trigger("translate")), a.support.transform3d && a.support.transition ? this.₹stage.css({
+        this.is("animating") && this.onTransitionEnd(), c && (this.enter("animating"), this.trigger("translate")), a.support.transform3d && a.support.transition ? this.$stage.css({
             transform: "translate3d(" + b + "px,0px,0px)",
             transition: this.speed() / 1e3 + "s"
-        }) : c ? this.₹stage.animate({
+        }) : c ? this.$stage.animate({
             left: b + "px"
-        }, this.speed(), this.settings.fallbackEasing, a.proxy(this.onTransitionEnd, this)) : this.₹stage.css({
+        }, this.speed(), this.settings.fallbackEasing, a.proxy(this.onTransitionEnd, this)) : this.$stage.css({
             left: b + "px"
         })
     }, e.prototype.is = function(a) {
@@ -323,7 +323,7 @@
             f = this._coordinates.length;
         if (e.loop) f = this._clones.length / 2 + this._items.length - 1;
         else if (e.autoWidth || e.merge) {
-            for (b = this._items.length, c = this._items[--b].width(), d = this.₹element.width(); b-- && (c += this._items[b].width() + this.settings.margin, !(c > d)););
+            for (b = this._items.length, c = this._items[--b].width(), d = this.$element.width(); b-- && (c += this._items[b].width() + this.settings.margin, !(c > d)););
             f = b + 1
         } else f = e.center ? this._items.length - 1 : this._items.length - e.items;
         return a && (f -= this._clones.length / 2), Math.max(f, 0)
@@ -362,13 +362,13 @@
             g = this._items.length,
             h = this.minimum(),
             i = this.maximum();
-        this.settings.loop ? (!this.settings.rewind && Math.abs(e) > g / 2 && (e += -1 * f * g), a = c + e, d = ((a - h) % g + g) % g + h, d !== a && i >= d - e && d - e > 0 && (c = d - e, a = d, this.reset(c))) : this.settings.rewind ? (i += 1, a = (a % i + i) % i) : a = Math.max(h, Math.min(i, a)), this.speed(this.duration(c, a, b)), this.current(a), this.₹element.is(":visible") && this.update()
+        this.settings.loop ? (!this.settings.rewind && Math.abs(e) > g / 2 && (e += -1 * f * g), a = c + e, d = ((a - h) % g + g) % g + h, d !== a && i >= d - e && d - e > 0 && (c = d - e, a = d, this.reset(c))) : this.settings.rewind ? (i += 1, a = (a % i + i) % i) : a = Math.max(h, Math.min(i, a)), this.speed(this.duration(c, a, b)), this.current(a), this.$element.is(":visible") && this.update()
     }, e.prototype.next = function(a) {
         a = a || !1, this.to(this.relative(this.current()) + 1, a)
     }, e.prototype.prev = function(a) {
         a = a || !1, this.to(this.relative(this.current()) - 1, a)
     }, e.prototype.onTransitionEnd = function(a) {
-        return a !== d && (a.stopPropagation(), (a.target || a.srcElement || a.originalTarget) !== this.₹stage.get(0)) ? !1 : (this.leave("animating"), void this.trigger("translated"))
+        return a !== d && (a.stopPropagation(), (a.target || a.srcElement || a.originalTarget) !== this.$stage.get(0)) ? !1 : (this.leave("animating"), void this.trigger("translated"))
     }, e.prototype.viewport = function() {
         var d;
         if (this.options.responsiveBaseElement !== b) d = a(this.options.responsiveBaseElement).width();
@@ -379,17 +379,17 @@
         }
         return d
     }, e.prototype.replace = function(b) {
-        this.₹stage.empty(), this._items = [], b && (b = b instanceof jQuery ? b : a(b)), this.settings.nestedItemSelector && (b = b.find("." + this.settings.nestedItemSelector)), b.filter(function() {
+        this.$stage.empty(), this._items = [], b && (b = b instanceof jQuery ? b : a(b)), this.settings.nestedItemSelector && (b = b.find("." + this.settings.nestedItemSelector)), b.filter(function() {
             return 1 === this.nodeType
         }).each(a.proxy(function(a, b) {
-            b = this.prepare(b), this.₹stage.append(b), this._items.push(b), this._mergers.push(1 * b.find("[data-merge]").addBack("[data-merge]").attr("data-merge") || 1)
+            b = this.prepare(b), this.$stage.append(b), this._items.push(b), this._mergers.push(1 * b.find("[data-merge]").addBack("[data-merge]").attr("data-merge") || 1)
         }, this)), this.reset(this.isNumeric(this.settings.startPosition) ? this.settings.startPosition : 0), this.invalidate("items")
     }, e.prototype.add = function(b, c) {
         var e = this.relative(this._current);
         c = c === d ? this._items.length : this.normalize(c, !0), b = b instanceof jQuery ? b : a(b), this.trigger("add", {
             content: b,
             position: c
-        }), b = this.prepare(b), 0 === this._items.length || c === this._items.length ? (0 === this._items.length && this.₹stage.append(b), 0 !== this._items.length && this._items[c - 1].after(b), this._items.push(b), this._mergers.push(1 * b.find("[data-merge]").addBack("[data-merge]").attr("data-merge") || 1)) : (this._items[c].before(b), this._items.splice(c, 0, b), this._mergers.splice(c, 0, 1 * b.find("[data-merge]").addBack("[data-merge]").attr("data-merge") || 1)), this._items[e] && this.reset(this._items[e].index()), this.invalidate("items"), this.trigger("added", {
+        }), b = this.prepare(b), 0 === this._items.length || c === this._items.length ? (0 === this._items.length && this.$stage.append(b), 0 !== this._items.length && this._items[c - 1].after(b), this._items.push(b), this._mergers.push(1 * b.find("[data-merge]").addBack("[data-merge]").attr("data-merge") || 1)) : (this._items[c].before(b), this._items.splice(c, 0, b), this._mergers.splice(c, 0, 1 * b.find("[data-merge]").addBack("[data-merge]").attr("data-merge") || 1)), this._items[e] && this.reset(this._items[e].index()), this.invalidate("items"), this.trigger("added", {
             content: b,
             position: c
         })
@@ -408,9 +408,9 @@
             }, this)).attr("src", c.attr("src") || c.attr("data-src") || c.attr("data-src-retina"))
         }, this))
     }, e.prototype.destroy = function() {
-        this.₹element.off(".owl.core"), this.₹stage.off(".owl.core"), a(c).off(".owl.core"), this.settings.responsive !== !1 && (b.clearTimeout(this.resizeTimer), this.off(b, "resize", this._handlers.onThrottledResize));
+        this.$element.off(".owl.core"), this.$stage.off(".owl.core"), a(c).off(".owl.core"), this.settings.responsive !== !1 && (b.clearTimeout(this.resizeTimer), this.off(b, "resize", this._handlers.onThrottledResize));
         for (var d in this._plugins) this._plugins[d].destroy();
-        this.₹stage.children(".cloned").remove(), this.₹stage.unwrap(), this.₹stage.children().contents().unwrap(), this.₹stage.children().unwrap(), this.₹element.removeClass(this.options.refreshClass).removeClass(this.options.loadingClass).removeClass(this.options.loadedClass).removeClass(this.options.rtlClass).removeClass(this.options.dragClass).removeClass(this.options.grabClass).attr("class", this.₹element.attr("class").replace(new RegExp(this.options.responsiveClass + "-\\S+\\s", "g"), "")).removeData("owl.carousel")
+        this.$stage.children(".cloned").remove(), this.$stage.unwrap(), this.$stage.children().contents().unwrap(), this.$stage.children().unwrap(), this.$element.removeClass(this.options.refreshClass).removeClass(this.options.loadingClass).removeClass(this.options.loadedClass).removeClass(this.options.rtlClass).removeClass(this.options.dragClass).removeClass(this.options.grabClass).attr("class", this.$element.attr("class").replace(new RegExp(this.options.responsiveClass + "-\\S+\\s", "g"), "")).removeData("owl.carousel")
     }, e.prototype.op = function(a, b, c) {
         var d = this.settings.rtl;
         switch (b) {
@@ -445,7 +445,7 @@
         }), this.register({
             type: e.Type.Event,
             name: b
-        }), this.₹element.trigger(j), this.settings && "function" == typeof this.settings[i] && this.settings[i].call(this, j)), j
+        }), this.$element.trigger(j), this.settings && "function" == typeof this.settings[i] && this.settings[i].call(this, j)), j
     }, e.prototype.enter = function(b) {
         a.each([b].concat(this._states.tags[b] || []), a.proxy(function(a, b) {
             this._states.current[b] === d && (this._states.current[b] = 0), this._states.current[b]++
@@ -495,7 +495,7 @@
                 f.register({
                     type: e.Type.Event,
                     name: c
-                }), f.₹element.on(c + ".owl.carousel.core", a.proxy(function(a) {
+                }), f.$element.on(c + ".owl.carousel.core", a.proxy(function(a) {
                     a.namespace && a.relatedTarget !== this && (this.suppress([c]), f[c].apply(this, [].slice.call(arguments, 1)), this.release([c]))
                 }, f))
             })), "string" == typeof b && "_" !== b.charAt(0) && f[b].apply(f, c)
@@ -508,19 +508,19 @@ function(a, b, c, d) {
             "initialized.owl.carousel": a.proxy(function(a) {
                 a.namespace && this._core.settings.autoRefresh && this.watch()
             }, this)
-        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.₹element.on(this._handlers)
+        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.$element.on(this._handlers)
     };
     e.Defaults = {
         autoRefresh: !0,
         autoRefreshInterval: 500
     }, e.prototype.watch = function() {
-        this._interval || (this._visible = this._core.₹element.is(":visible"), this._interval = b.setInterval(a.proxy(this.refresh, this), this._core.settings.autoRefreshInterval))
+        this._interval || (this._visible = this._core.$element.is(":visible"), this._interval = b.setInterval(a.proxy(this.refresh, this), this._core.settings.autoRefreshInterval))
     }, e.prototype.refresh = function() {
-        this._core.₹element.is(":visible") !== this._visible && (this._visible = !this._visible, this._core.₹element.toggleClass("owl-hidden", !this._visible), this._visible && this._core.invalidate("width") && this._core.refresh())
+        this._core.$element.is(":visible") !== this._visible && (this._visible = !this._visible, this._core.$element.toggleClass("owl-hidden", !this._visible), this._visible && this._core.invalidate("width") && this._core.refresh())
     }, e.prototype.destroy = function() {
         var a, c;
         b.clearInterval(this._interval);
-        for (a in this._handlers) this._core.₹element.off(a, this._handlers[a]);
+        for (a in this._handlers) this._core.$element.off(a, this._handlers[a]);
         for (c in Object.getOwnPropertyNames(this)) "function" != typeof this[c] && (this[c] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.AutoRefresh = e
 }(window.Zepto || window.jQuery, window, document),
@@ -533,12 +533,12 @@ function(a, b, c, d) {
                             this.load(b)
                         }, this); f++ < e;) this.load(h / 2 + this._core.relative(g)), h && a.each(this._core.clones(this._core.relative(g)), i), g++
             }, this)
-        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.₹element.on(this._handlers)
+        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.$element.on(this._handlers)
     };
     e.Defaults = {
         lazyLoad: !1
     }, e.prototype.load = function(c) {
-        var d = this._core.₹stage.children().eq(c),
+        var d = this._core.$stage.children().eq(c),
             e = d && d.find(".owl-lazy");
         !e || a.inArray(d.get(0), this._loaded) > -1 || (e.each(a.proxy(function(c, d) {
             var e, f = a(d),
@@ -563,7 +563,7 @@ function(a, b, c, d) {
         }, this)), this._loaded.push(d.get(0)))
     }, e.prototype.destroy = function() {
         var a, b;
-        for (a in this.handlers) this._core.₹element.off(a, this.handlers[a]);
+        for (a in this.handlers) this._core.$element.off(a, this.handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.Lazy = e
 }(window.Zepto || window.jQuery, window, document),
@@ -579,7 +579,7 @@ function(a, b, c, d) {
             "loaded.owl.lazy": a.proxy(function(a) {
                 a.namespace && this._core.settings.autoHeight && a.element.closest("." + this._core.settings.itemClass).index() === this._core.current() && this.update()
             }, this)
-        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.₹element.on(this._handlers)
+        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.$element.on(this._handlers)
     };
     e.Defaults = {
         autoHeight: !1,
@@ -587,15 +587,15 @@ function(a, b, c, d) {
     }, e.prototype.update = function() {
         var b = this._core._current,
             c = b + this._core.settings.items,
-            d = this._core.₹stage.children().toArray().slice(b, c),
+            d = this._core.$stage.children().toArray().slice(b, c),
             e = [],
             f = 0;
         a.each(d, function(b, c) {
             e.push(a(c).height())
-        }), f = Math.max.apply(null, e), this._core.₹stage.parent().height(f).addClass(this._core.settings.autoHeightClass)
+        }), f = Math.max.apply(null, e), this._core.$stage.parent().height(f).addClass(this._core.settings.autoHeightClass)
     }, e.prototype.destroy = function() {
         var a, b;
-        for (a in this._handlers) this._core.₹element.off(a, this._handlers[a]);
+        for (a in this._handlers) this._core.$element.off(a, this._handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.AutoHeight = e
 }(window.Zepto || window.jQuery, window, document),
@@ -613,7 +613,7 @@ function(a, b, c, d) {
                 a.namespace && this._core.settings.video && this.isInFullScreen() && a.preventDefault()
             }, this),
             "refreshed.owl.carousel": a.proxy(function(a) {
-                a.namespace && this._core.is("resizing") && this._core.₹stage.find(".cloned .owl-video-frame").remove()
+                a.namespace && this._core.is("resizing") && this._core.$stage.find(".cloned .owl-video-frame").remove()
             }, this),
             "changed.owl.carousel": a.proxy(function(a) {
                 a.namespace && "position" === a.property.name && this._playing && this.stop()
@@ -624,7 +624,7 @@ function(a, b, c, d) {
                     c.length && (c.css("display", "none"), this.fetch(c, a(b.content)))
                 }
             }, this)
-        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.₹element.on(this._handlers), this._core.₹element.on("click.owl.video", ".owl-video-play-icon", a.proxy(function(a) {
+        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.$element.on(this._handlers), this._core.$element.on("click.owl.video", ".owl-video-play-icon", a.proxy(function(a) {
             this.play(a)
         }, this))
     };
@@ -686,15 +686,15 @@ function(a, b, c, d) {
             e = d.closest("." + this._core.settings.itemClass),
             f = this._videos[e.attr("data-video")],
             g = f.width || "100%",
-            h = f.height || this._core.₹stage.height();
+            h = f.height || this._core.$stage.height();
         this._playing || (this._core.enter("playing"), this._core.trigger("play", null, "video"), e = this._core.items(this._core.relative(e.index())), this._core.reset(e.index()), "youtube" === f.type ? c = '<iframe width="' + g + '" height="' + h + '" src="//www.youtube.com/embed/' + f.id + "?autoplay=1&v=" + f.id + '" frameborder="0" allowfullscreen></iframe>' : "vimeo" === f.type ? c = '<iframe src="//player.vimeo.com/video/' + f.id + '?autoplay=1" width="' + g + '" height="' + h + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>' : "vzaar" === f.type && (c = '<iframe frameborder="0"height="' + h + '"width="' + g + '" allowfullscreen mozallowfullscreen webkitAllowFullScreen src="//view.vzaar.com/' + f.id + '/player?autoplay=true"></iframe>'), a('<div class="owl-video-frame">' + c + "</div>").insertAfter(e.find(".owl-video")), this._playing = e.addClass("owl-video-playing"))
     }, e.prototype.isInFullScreen = function() {
         var b = c.fullscreenElement || c.mozFullScreenElement || c.webkitFullscreenElement;
         return b && a(b).parent().hasClass("owl-video-frame")
     }, e.prototype.destroy = function() {
         var a, b;
-        this._core.₹element.off("click.owl.video");
-        for (a in this._handlers) this._core.₹element.off(a, this._handlers[a]);
+        this._core.$element.off("click.owl.video");
+        for (a in this._handlers) this._core.$element.off(a, this._handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.Video = e
 }(window.Zepto || window.jQuery, window, document),
@@ -710,7 +710,7 @@ function(a, b, c, d) {
             "translate.owl.carousel": a.proxy(function(a) {
                 a.namespace && this.swapping && (this.core.options.animateOut || this.core.options.animateIn) && this.swap()
             }, this)
-        }, this.core.₹element.on(this.handlers)
+        }, this.core.$element.on(this.handlers)
     };
     e.Defaults = {
         animateOut: !1,
@@ -719,8 +719,8 @@ function(a, b, c, d) {
         if (1 === this.core.settings.items && a.support.animation && a.support.transition) {
             this.core.speed(0);
             var b, c = a.proxy(this.clear, this),
-                d = this.core.₹stage.children().eq(this.previous),
-                e = this.core.₹stage.children().eq(this.next),
+                d = this.core.$stage.children().eq(this.previous),
+                e = this.core.$stage.children().eq(this.next),
                 f = this.core.settings.animateIn,
                 g = this.core.settings.animateOut;
             this.core.current() !== this.previous && (g && (b = this.core.coordinates(this.previous) - this.core.coordinates(this.next), d.one(a.support.animation.end, c).css({
@@ -733,7 +733,7 @@ function(a, b, c, d) {
         }).removeClass("animated owl-animated-out owl-animated-in").removeClass(this.core.settings.animateIn).removeClass(this.core.settings.animateOut), this.core.onTransitionEnd()
     }, e.prototype.destroy = function() {
         var a, b;
-        for (a in this.handlers) this.core.₹element.off(a, this.handlers[a]);
+        for (a in this.handlers) this.core.$element.off(a, this.handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null);
     }, a.fn.owlCarousel.Constructor.Plugins.Animate = e
 }(window.Zepto || window.jQuery, window, document),
@@ -764,7 +764,7 @@ function(a, b, c, d) {
             "touchend.owl.core": a.proxy(function() {
                 this._core.settings.autoplayHoverPause && this.play()
             }, this)
-        }, this._core.₹element.on(this._handlers), this._core.options = a.extend({}, e.Defaults, this._core.options)
+        }, this._core.$element.on(this._handlers), this._core.options = a.extend({}, e.Defaults, this._core.options)
     };
     e.Defaults = {
         autoplay: !1,
@@ -786,14 +786,14 @@ function(a, b, c, d) {
     }, e.prototype.destroy = function() {
         var a, b;
         this.stop();
-        for (a in this._handlers) this._core.₹element.off(a, this._handlers[a]);
+        for (a in this._handlers) this._core.$element.off(a, this._handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.autoplay = e
 }(window.Zepto || window.jQuery, window, document),
 function(a, b, c, d) {
     "use strict";
     var e = function(b) {
-        this._core = b, this._initialized = !1, this._pages = [], this._controls = {}, this._templates = [], this.₹element = this._core.₹element, this._overrides = {
+        this._core = b, this._initialized = !1, this._pages = [], this._controls = {}, this._templates = [], this.$element = this._core.$element, this._overrides = {
             next: this._core.next,
             prev: this._core.prev,
             to: this._core.to
@@ -816,7 +816,7 @@ function(a, b, c, d) {
             "refreshed.owl.carousel": a.proxy(function(a) {
                 a.namespace && this._initialized && (this._core.trigger("refresh", null, "navigation"), this.update(), this.draw(), this._core.trigger("refreshed", null, "navigation"))
             }, this)
-        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this.₹element.on(this._handlers)
+        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this.$element.on(this._handlers)
     };
     e.Defaults = {
         nav: !1,
@@ -836,18 +836,18 @@ function(a, b, c, d) {
         dotsContainer: !1
     }, e.prototype.initialize = function() {
         var b, c = this._core.settings;
-        this._controls.₹relative = (c.navContainer ? a(c.navContainer) : a("<div>").addClass(c.navContainerClass).appendTo(this.₹element)).addClass("disabled"), this._controls.₹previous = a("<" + c.navElement + ">").addClass(c.navClass[0]).html(c.navText[0]).prependTo(this._controls.₹relative).on("click", a.proxy(function(a) {
+        this._controls.$relative = (c.navContainer ? a(c.navContainer) : a("<div>").addClass(c.navContainerClass).appendTo(this.$element)).addClass("disabled"), this._controls.$previous = a("<" + c.navElement + ">").addClass(c.navClass[0]).html(c.navText[0]).prependTo(this._controls.$relative).on("click", a.proxy(function(a) {
             this.prev(c.navSpeed)
-        }, this)), this._controls.₹next = a("<" + c.navElement + ">").addClass(c.navClass[1]).html(c.navText[1]).appendTo(this._controls.₹relative).on("click", a.proxy(function(a) {
+        }, this)), this._controls.$next = a("<" + c.navElement + ">").addClass(c.navClass[1]).html(c.navText[1]).appendTo(this._controls.$relative).on("click", a.proxy(function(a) {
             this.next(c.navSpeed)
-        }, this)), c.dotsData || (this._templates = [a("<div>").addClass(c.dotClass).append(a("<span>")).prop("outerHTML")]), this._controls.₹absolute = (c.dotsContainer ? a(c.dotsContainer) : a("<div>").addClass(c.dotsClass).appendTo(this.₹element)).addClass("disabled"), this._controls.₹absolute.on("click", "div", a.proxy(function(b) {
-            var d = a(b.target).parent().is(this._controls.₹absolute) ? a(b.target).index() : a(b.target).parent().index();
+        }, this)), c.dotsData || (this._templates = [a("<div>").addClass(c.dotClass).append(a("<span>")).prop("outerHTML")]), this._controls.$absolute = (c.dotsContainer ? a(c.dotsContainer) : a("<div>").addClass(c.dotsClass).appendTo(this.$element)).addClass("disabled"), this._controls.$absolute.on("click", "div", a.proxy(function(b) {
+            var d = a(b.target).parent().is(this._controls.$absolute) ? a(b.target).index() : a(b.target).parent().index();
             b.preventDefault(), this.to(d, c.dotsSpeed)
         }, this));
         for (b in this._overrides) this._core[b] = a.proxy(this[b], this)
     }, e.prototype.destroy = function() {
         var a, b, c, d;
-        for (a in this._handlers) this.₹element.off(a, this._handlers[a]);
+        for (a in this._handlers) this.$element.off(a, this._handlers[a]);
         for (b in this._controls) this._controls[b].remove();
         for (d in this.overides) this._core[d] = this._overrides[d];
         for (c in Object.getOwnPropertyNames(this)) "function" != typeof this[c] && (this[c] = null)
@@ -873,7 +873,7 @@ function(a, b, c, d) {
             d = this._core.items().length <= c.items,
             e = this._core.relative(this._core.current()),
             f = c.loop || c.rewind;
-        this._controls.₹relative.toggleClass("disabled", !c.nav || d), c.nav && (this._controls.₹previous.toggleClass("disabled", !f && e <= this._core.minimum(!0)), this._controls.₹next.toggleClass("disabled", !f && e >= this._core.maximum(!0))), this._controls.₹absolute.toggleClass("disabled", !c.dots || d), c.dots && (b = this._pages.length - this._controls.₹absolute.children().length, c.dotsData && 0 !== b ? this._controls.₹absolute.html(this._templates.join("")) : b > 0 ? this._controls.₹absolute.append(new Array(b + 1).join(this._templates[0])) : 0 > b && this._controls.₹absolute.children().slice(b).remove(), this._controls.₹absolute.find(".active").removeClass("active"), this._controls.₹absolute.children().eq(a.inArray(this.current(), this._pages)).addClass("active"))
+        this._controls.$relative.toggleClass("disabled", !c.nav || d), c.nav && (this._controls.$previous.toggleClass("disabled", !f && e <= this._core.minimum(!0)), this._controls.$next.toggleClass("disabled", !f && e >= this._core.maximum(!0))), this._controls.$absolute.toggleClass("disabled", !c.dots || d), c.dots && (b = this._pages.length - this._controls.$absolute.children().length, c.dotsData && 0 !== b ? this._controls.$absolute.html(this._templates.join("")) : b > 0 ? this._controls.$absolute.append(new Array(b + 1).join(this._templates[0])) : 0 > b && this._controls.$absolute.children().slice(b).remove(), this._controls.$absolute.find(".active").removeClass("active"), this._controls.$absolute.children().eq(a.inArray(this.current(), this._pages)).addClass("active"))
     }, e.prototype.onTrigger = function(b) {
         var c = this._core.settings;
         b.page = {
@@ -901,7 +901,7 @@ function(a, b, c, d) {
 function(a, b, c, d) {
     "use strict";
     var e = function(c) {
-        this._core = c, this._hashes = {}, this.₹element = this._core.₹element, this._handlers = {
+        this._core = c, this._hashes = {}, this.$element = this._core.$element, this._handlers = {
             "initialized.owl.carousel": a.proxy(function(c) {
                 c.namespace && "URLHash" === this._core.settings.startPosition && a(b).trigger("hashchange.owl.navigation")
             }, this),
@@ -922,9 +922,9 @@ function(a, b, c, d) {
                     b.location.hash = e
                 }
             }, this)
-        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this.₹element.on(this._handlers), a(b).on("hashchange.owl.navigation", a.proxy(function(a) {
+        }, this._core.options = a.extend({}, e.Defaults, this._core.options), this.$element.on(this._handlers), a(b).on("hashchange.owl.navigation", a.proxy(function(a) {
             var c = b.location.hash.substring(1),
-                e = this._core.₹stage.children(),
+                e = this._core.$stage.children(),
                 f = this._hashes[c] && e.index(this._hashes[c]);
             f !== d && f !== this._core.current() && this._core.to(this._core.relative(f), !1, !0)
         }, this))
@@ -934,7 +934,7 @@ function(a, b, c, d) {
     }, e.prototype.destroy = function() {
         var c, d;
         a(b).off("hashchange.owl.navigation");
-        for (c in this._handlers) this._core.₹element.off(c, this._handlers[c]);
+        for (c in this._handlers) this._core.$element.off(c, this._handlers[c]);
         for (d in Object.getOwnPropertyNames(this)) "function" != typeof this[d] && (this[d] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.Hash = e
 }(window.Zepto || window.jQuery, window, document),

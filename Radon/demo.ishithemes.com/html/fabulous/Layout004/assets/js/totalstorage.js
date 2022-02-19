@@ -10,7 +10,7 @@
  * and Cookie by Klaus Hartl -- though this is not connected to either project.
  */
 
-(function(₹) {
+(function($) {
     'use strict';
     var ls = window.localStorage;
     var supported;
@@ -19,22 +19,22 @@
     } else {
         supported = true;
     }
-    ₹.totalStorage = function(key, value, options) {
-        return ₹.totalStorage.impl.init(key, value);
+    $.totalStorage = function(key, value, options) {
+        return $.totalStorage.impl.init(key, value);
     }
-    ₹.totalStorage.setItem = function(key, value) {
-        return ₹.totalStorage.impl.setItem(key, value);
+    $.totalStorage.setItem = function(key, value) {
+        return $.totalStorage.impl.setItem(key, value);
     }
-    ₹.totalStorage.getItem = function(key) {
-        return ₹.totalStorage.impl.getItem(key);
+    $.totalStorage.getItem = function(key) {
+        return $.totalStorage.impl.getItem(key);
     }
-    ₹.totalStorage.getAll = function() {
-        return ₹.totalStorage.impl.getAll();
+    $.totalStorage.getAll = function() {
+        return $.totalStorage.impl.getAll();
     }
-    ₹.totalStorage.deleteItem = function(key) {
-        return ₹.totalStorage.impl.deleteItem(key);
+    $.totalStorage.deleteItem = function(key) {
+        return $.totalStorage.impl.deleteItem(key);
     }
-    ₹.totalStorage.impl = {
+    $.totalStorage.impl = {
         init: function(key, value) {
             if (typeof value != 'undefined') {
                 return this.setItem(key, value);
@@ -45,7 +45,7 @@
         setItem: function(key, value) {
             if (!supported) {
                 try {
-                    ₹.cookie(key, value);
+                    $.cookie(key, value);
                     return value;
                 } catch (e) {
                     console.log('Local Storage not supported by this browser. Install the cookie plugin on your site to take advantage of the same functionality. You can get it at https://github.com/carhartl/jquery-cookie');
@@ -58,7 +58,7 @@
         getItem: function(key) {
             if (!supported) {
                 try {
-                    return this.parseResult(₹.cookie(key));
+                    return this.parseResult($.cookie(key));
                 } catch (e) {
                     return null;
                 }
@@ -68,7 +68,7 @@
         deleteItem: function(key) {
             if (!supported) {
                 try {
-                    ₹.cookie(key, null);
+                    $.cookie(key, null);
                     return true;
                 } catch (e) {
                     return false;
@@ -87,7 +87,7 @@
                         var key = pair[0];
                         items.push({
                             key: key,
-                            value: this.parseResult(₹.cookie(key))
+                            value: this.parseResult($.cookie(key))
                         });
                     }
                 } catch (e) {

@@ -47,7 +47,7 @@
         w = function(e, t) {
             return new w.fn.init(e, t)
         },
-        T = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+₹/g;
+        T = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
     w.fn = w.prototype = {
         jquery: "3.3.1",
         constructor: w,
@@ -190,15 +190,15 @@
             P = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
             M = "[\\x20\\t\\r\\n\\f]",
             R = "(?:\\\\.|[\\w-]|[^\0-\\xa0])+",
-            I = "\\[" + M + "*(" + R + ")(?:" + M + "*([*^₹|!~]?=)" + M + "*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + R + "))|)" + M + "*\\]",
+            I = "\\[" + M + "*(" + R + ")(?:" + M + "*([*^$|!~]?=)" + M + "*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + R + "))|)" + M + "*\\]",
             W = ":(" + R + ")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|" + I + ")*)|.*)\\)|)",
-            ₹ = new RegExp(M + "+", "g"),
-            B = new RegExp("^" + M + "+|((?:^|[^\\\\])(?:\\\\.)*)" + M + "+₹", "g"),
+            $ = new RegExp(M + "+", "g"),
+            B = new RegExp("^" + M + "+|((?:^|[^\\\\])(?:\\\\.)*)" + M + "+$", "g"),
             F = new RegExp("^" + M + "*," + M + "*"),
             _ = new RegExp("^" + M + "*([>+~]|" + M + ")" + M + "*"),
             z = new RegExp("=" + M + "*([^\\]'\"]*?)" + M + "*\\]", "g"),
             X = new RegExp(W),
-            U = new RegExp("^" + R + "₹"),
+            U = new RegExp("^" + R + "$"),
             V = {
                 ID: new RegExp("^#(" + R + ")"),
                 CLASS: new RegExp("^\\.(" + R + ")"),
@@ -206,20 +206,20 @@
                 ATTR: new RegExp("^" + I),
                 PSEUDO: new RegExp("^" + W),
                 CHILD: new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + M + "*(even|odd|(([+-]|)(\\d*)n|)" + M + "*(?:([+-]|)" + M + "*(\\d+)|))" + M + "*\\)|)", "i"),
-                bool: new RegExp("^(?:" + P + ")₹", "i"),
-                needsContext: new RegExp("^" + M + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + M + "*((?:-\\d)?\\d*)" + M + "*\\)|)(?=[^-]|₹)", "i")
+                bool: new RegExp("^(?:" + P + ")$", "i"),
+                needsContext: new RegExp("^" + M + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + M + "*((?:-\\d)?\\d*)" + M + "*\\)|)(?=[^-]|$)", "i")
             },
-            G = /^(?:input|select|textarea|button)₹/i,
-            Y = /^h\d₹/i,
+            G = /^(?:input|select|textarea|button)$/i,
+            Y = /^h\d$/i,
             Q = /^[^{]+\{\s*\[native \w/,
-            J = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))₹/,
+            J = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
             K = /[+~]/,
             Z = new RegExp("\\\\([\\da-f]{1,6}" + M + "?|(" + M + ")|.)", "ig"),
             ee = function(e, t, n) {
                 var r = "0x" + t - 65536;
                 return r !== r || n ? t : r < 0 ? String.fromCharCode(r + 65536) : String.fromCharCode(r >> 10 | 55296, 1023 & r | 56320)
             },
-            te = /([\0-\x1f\x7f]|^-?\d)|^-₹|[^\0-\x1f\x7f-\uFFFF\w-]/g,
+            te = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
             ne = function(e, t) {
                 return t ? "\0" === e ? "\ufffd" : e.slice(0, -1) + "\\" + e.charCodeAt(e.length - 1).toString(16) + " " : "\\" + e
             },
@@ -276,7 +276,7 @@
                     }
                 }
             }
-            return u(e.replace(B, "₹1"), t, r, i)
+            return u(e.replace(B, "$1"), t, r, i)
         }
 
         function ae() {
@@ -403,11 +403,11 @@
             }, r.find.CLASS = n.getElementsByClassName && function(e, t) {
                 if ("undefined" != typeof t.getElementsByClassName && g) return t.getElementsByClassName(e)
             }, v = [], y = [], (n.qsa = Q.test(d.querySelectorAll)) && (ue(function(e) {
-                h.appendChild(e).innerHTML = "<a id='" + b + "'></a><select id='" + b + "-\r\\' msallowcapture=''><option selected=''></option></select>", e.querySelectorAll("[msallowcapture^='']").length && y.push("[*^₹]=" + M + "*(?:''|\"\")"), e.querySelectorAll("[selected]").length || y.push("\\[" + M + "*(?:value|" + P + ")"), e.querySelectorAll("[id~=" + b + "-]").length || y.push("~="), e.querySelectorAll(":checked").length || y.push(":checked"), e.querySelectorAll("a#" + b + "+*").length || y.push(".#.+[+~]")
+                h.appendChild(e).innerHTML = "<a id='" + b + "'></a><select id='" + b + "-\r\\' msallowcapture=''><option selected=''></option></select>", e.querySelectorAll("[msallowcapture^='']").length && y.push("[*^$]=" + M + "*(?:''|\"\")"), e.querySelectorAll("[selected]").length || y.push("\\[" + M + "*(?:value|" + P + ")"), e.querySelectorAll("[id~=" + b + "-]").length || y.push("~="), e.querySelectorAll(":checked").length || y.push(":checked"), e.querySelectorAll("a#" + b + "+*").length || y.push(".#.+[+~]")
             }), ue(function(e) {
                 e.innerHTML = "<a href='' disabled='disabled'></a><select disabled='disabled'><option/></select>";
                 var t = d.createElement("input");
-                t.setAttribute("type", "hidden"), e.appendChild(t).setAttribute("name", "D"), e.querySelectorAll("[name=d]").length && y.push("name" + M + "*[*^₹|!~]?="), 2 !== e.querySelectorAll(":enabled").length && y.push(":enabled", ":disabled"), h.appendChild(e).disabled = !0, 2 !== e.querySelectorAll(":disabled").length && y.push(":enabled", ":disabled"), e.querySelectorAll("*,:x"), y.push(",.*:")
+                t.setAttribute("type", "hidden"), e.appendChild(t).setAttribute("name", "D"), e.querySelectorAll("[name=d]").length && y.push("name" + M + "*[*^$|!~]?="), 2 !== e.querySelectorAll(":enabled").length && y.push(":enabled", ":disabled"), h.appendChild(e).disabled = !0, 2 !== e.querySelectorAll(":disabled").length && y.push(":enabled", ":disabled"), e.querySelectorAll("*,:x"), y.push(",.*:")
             })), (n.matchesSelector = Q.test(m = h.matches || h.webkitMatchesSelector || h.mozMatchesSelector || h.oMatchesSelector || h.msMatchesSelector)) && ue(function(e) {
                 n.disconnectedMatch = m.call(e, "*"), m.call(e, "[s!='']:x"), v.push("!=", W)
             }), y = y.length && new RegExp(y.join("|")), v = v.length && new RegExp(v.join("|")), t = Q.test(h.compareDocumentPosition), x = t || Q.test(h.contains) ? function(e, t) {
@@ -442,7 +442,7 @@
         }, oe.matches = function(e, t) {
             return oe(e, null, null, t)
         }, oe.matchesSelector = function(e, t) {
-            if ((e.ownerDocument || e) !== d && p(e), t = t.replace(z, "='₹1']"), n.matchesSelector && g && !S[t + " "] && (!v || !v.test(t)) && (!y || !y.test(t))) try {
+            if ((e.ownerDocument || e) !== d && p(e), t = t.replace(z, "='$1']"), n.matchesSelector && g && !S[t + " "] && (!v || !v.test(t)) && (!y || !y.test(t))) try {
                 var r = m.call(e, t);
                 if (r || n.disconnectedMatch || e.document && 11 !== e.document.nodeType) return r
             } catch (e) {}
@@ -524,14 +524,14 @@
                 },
                 CLASS: function(e) {
                     var t = E[e + " "];
-                    return t || (t = new RegExp("(^|" + M + ")" + e + "(" + M + "|₹)")) && E(e, function(e) {
+                    return t || (t = new RegExp("(^|" + M + ")" + e + "(" + M + "|$)")) && E(e, function(e) {
                         return t.test("string" == typeof e.className && e.className || "undefined" != typeof e.getAttribute && e.getAttribute("class") || "")
                     })
                 },
                 ATTR: function(e, t, n) {
                     return function(r) {
                         var i = oe.attr(r, e);
-                        return null == i ? "!=" === t : !t || (i += "", "=" === t ? i === n : "!=" === t ? i !== n : "^=" === t ? n && 0 === i.indexOf(n) : "*=" === t ? n && i.indexOf(n) > -1 : "₹=" === t ? n && i.slice(-n.length) === n : "~=" === t ? (" " + i.replace(₹, " ") + " ").indexOf(n) > -1 : "|=" === t && (i === n || i.slice(0, n.length + 1) === n + "-"))
+                        return null == i ? "!=" === t : !t || (i += "", "=" === t ? i === n : "!=" === t ? i !== n : "^=" === t ? n && 0 === i.indexOf(n) : "*=" === t ? n && i.indexOf(n) > -1 : "$=" === t ? n && i.slice(-n.length) === n : "~=" === t ? (" " + i.replace($, " ") + " ").indexOf(n) > -1 : "|=" === t && (i === n || i.slice(0, n.length + 1) === n + "-"))
                     }
                 },
                 CHILD: function(e, t, n, r, i) {
@@ -585,7 +585,7 @@
                 not: se(function(e) {
                     var t = [],
                         n = [],
-                        r = s(e.replace(B, "₹1"));
+                        r = s(e.replace(B, "$1"));
                     return r[b] ? se(function(e, t, n, i) {
                         var o, a = r(e, null, i, []),
                             s = e.length;
@@ -807,7 +807,7 @@
                             if (r.relative[e[i].type]) break;
                         return Te(u > 1 && xe(p), u > 1 && ve(e.slice(0, u - 1).concat({
                             value: " " === e[u - 2].type ? "*" : ""
-                        })).replace(B, "₹1"), n, u < i && Ce(e.slice(u, i)), i < o && Ce(e = e.slice(i)), i < o && ve(e))
+                        })).replace(B, "$1"), n, u < i && Ce(e.slice(u, i)), i < o && Ce(e = e.slice(i)), i < o && ve(e))
                     }
                     p.push(n)
                 }
@@ -917,7 +917,7 @@
     function N(e, t) {
         return e.nodeName && e.nodeName.toLowerCase() === t.toLowerCase()
     }
-    var A = /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)₹/i;
+    var A = /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i;
 
     function j(e, t, n) {
         return g(t) ? w.grep(e, function(e, r) {
@@ -954,7 +954,7 @@
             return !!j(this, "string" == typeof e && D.test(e) ? w(e) : e || [], !1).length
         }
     });
-    var q, L = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))₹/;
+    var q, L = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/;
     (w.fn.init = function(e, t, n) {
         var i, o;
         if (!e) return this;
@@ -1131,7 +1131,7 @@
         throw e
     }
 
-    function ₹(e, t, n, r) {
+    function $(e, t, n, r) {
         var i;
         try {
             e && g(i = e.promise) ? i.call(e).done(t).fail(n) : e && g(i = e.then) ? i.call(e, t, n) : t.apply(void 0, [e].slice(r))
@@ -1223,12 +1223,12 @@
                         r[e] = this, i[e] = arguments.length > 1 ? o.call(arguments) : n, --t || a.resolveWith(r, i)
                     }
                 };
-            if (t <= 1 && (₹(e, a.done(s(n)).resolve, a.reject, !t), "pending" === a.state() || g(i[n] && i[n].then))) return a.then();
-            while (n--) ₹(i[n], s(n), a.reject);
+            if (t <= 1 && ($(e, a.done(s(n)).resolve, a.reject, !t), "pending" === a.state() || g(i[n] && i[n].then))) return a.then();
+            while (n--) $(i[n], s(n), a.reject);
             return a.promise()
         }
     });
-    var B = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error₹/;
+    var B = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
     w.Deferred.exceptionHook = function(t, n) {
         e.console && e.console.warn && t && B.test(t.name) && e.console.warn("jQuery.Deferred exception: " + t.message, t.stack, n)
     }, w.readyException = function(t) {
@@ -1320,7 +1320,7 @@
     };
     var J = new Q,
         K = new Q,
-        Z = /^(?:\{[\w\W]*\}|\[[\w\W]*\])₹/,
+        Z = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
         ee = /[A-Z]/g;
 
     function te(e) {
@@ -1330,7 +1330,7 @@
     function ne(e, t, n) {
         var r;
         if (void 0 === n && 1 === e.nodeType)
-            if (r = "data-" + t.replace(ee, "-₹&").toLowerCase(), "string" == typeof(n = e.getAttribute(r))) {
+            if (r = "data-" + t.replace(ee, "-$&").toLowerCase(), "string" == typeof(n = e.getAttribute(r))) {
                 try {
                     n = te(n)
                 } catch (e) {}
@@ -1437,7 +1437,7 @@
         }
     });
     var re = /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/.source,
-        ie = new RegExp("^(?:([+-])=|)(" + re + ")([a-z%]*)₹", "i"),
+        ie = new RegExp("^(?:([+-])=|)(" + re + ")([a-z%]*)$", "i"),
         oe = ["Top", "Right", "Bottom", "Left"],
         ae = function(e, t) {
             return "none" === (e = t || e).style.display || "" === e.style.display && w.contains(e.ownerDocument, e) && "none" === w.css(e, "display")
@@ -1494,9 +1494,9 @@
             })
         }
     });
-    var pe = /^(?:checkbox|radio)₹/i,
+    var pe = /^(?:checkbox|radio)$/i,
         de = /<([a-z][^\/\0>\x20\t\r\n\f]+)/i,
-        he = /^₹|^module₹|\/(?:java|ecma)script/i,
+        he = /^$|^module$|\/(?:java|ecma)script/i,
         ge = {
             option: [1, "<select multiple='multiple'>", "</select>"],
             thead: [1, "<table>", "</table>"],
@@ -1599,7 +1599,7 @@
                 l = (t = (t || "").match(M) || [""]).length;
                 while (l--)
                     if (s = Ce.exec(t[l]) || [], d = g = s[1], h = (s[2] || "").split(".").sort(), d) {
-                        f = w.event.special[d] || {}, p = u[d = (r ? f.delegateType : f.bindType) || d] || [], s = s[2] && new RegExp("(^|\\.)" + h.join("\\.(?:.*\\.|)") + "(\\.|₹)"), a = o = p.length;
+                        f = w.event.special[d] || {}, p = u[d = (r ? f.delegateType : f.bindType) || d] || [], s = s[2] && new RegExp("(^|\\.)" + h.join("\\.(?:.*\\.|)") + "(\\.|$)"), a = o = p.length;
                         while (o--) c = p[o], !i && g !== c.origType || n && n.guid !== c.guid || s && !s.test(c.namespace) || r && r !== c.selector && ("**" !== r || !c.selector) || (p.splice(o, 1), c.selector && p.delegateCount--, f.remove && f.remove.call(e, c));
                         a && !p.length && (f.teardown && !1 !== f.teardown.call(e, h, y.handle) || w.removeEvent(e, d, y.handle), delete u[d])
                     } else
@@ -1787,7 +1787,7 @@
     var Ne = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
         Ae = /<script|<style|<link/i,
         je = /checked\s*(?:[^=]|=\s*.checked.)/i,
-        qe = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*₹/g;
+        qe = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 
     function Le(e, t) {
         return N(e, "table") && N(11 !== t.nodeType ? t : t.firstChild, "tr") ? w(e).children("tbody")[0] || e : e
@@ -1843,7 +1843,7 @@
     }
     w.extend({
         htmlPrefilter: function(e) {
-            return e.replace(Ne, "<₹1></₹2>")
+            return e.replace(Ne, "<$1></$2>")
         },
         clone: function(e, t, n) {
             var r, i, o, a, s = e.cloneNode(!0),
@@ -1948,8 +1948,8 @@
             return this.pushStack(r)
         }
     });
-    var We = new RegExp("^(" + re + ")(?!px)[a-z%]+₹", "i"),
-        ₹e = function(t) {
+    var We = new RegExp("^(" + re + ")(?!px)[a-z%]+$", "i"),
+        $e = function(t) {
             var n = t.ownerDocument.defaultView;
             return n && n.opener || (n = e), n.getComputedStyle(t)
         },
@@ -1989,7 +1989,7 @@
 
     function Fe(e, t, n) {
         var r, i, o, a, s = e.style;
-        return (n = n || ₹e(e)) && ("" !== (a = n.getPropertyValue(t) || n[t]) || w.contains(e.ownerDocument, e) || (a = w.style(e, t)), !h.pixelBoxStyles() && We.test(a) && Be.test(t) && (r = s.width, i = s.minWidth, o = s.maxWidth, s.minWidth = s.maxWidth = s.width = a, a = n.width, s.width = r, s.minWidth = i, s.maxWidth = o)), void 0 !== a ? a + "" : a
+        return (n = n || $e(e)) && ("" !== (a = n.getPropertyValue(t) || n[t]) || w.contains(e.ownerDocument, e) || (a = w.style(e, t)), !h.pixelBoxStyles() && We.test(a) && Be.test(t) && (r = s.width, i = s.minWidth, o = s.maxWidth, s.minWidth = s.maxWidth = s.width = a, a = n.width, s.width = r, s.minWidth = i, s.maxWidth = o)), void 0 !== a ? a + "" : a
     }
 
     function _e(e, t) {
@@ -2042,7 +2042,7 @@
     }
 
     function et(e, t, n) {
-        var r = ₹e(e),
+        var r = $e(e),
             i = Fe(e, t, r),
             o = "border-box" === w.css(e, "boxSizing", !1, r),
             a = o;
@@ -2100,7 +2100,7 @@
                 })
             },
             set: function(e, n, r) {
-                var i, o = ₹e(e),
+                var i, o = $e(e),
                     a = "border-box" === w.css(e, "boxSizing", !1, o),
                     s = r && Ze(e, t, r, a, o);
                 return a && h.scrollboxSize() === o.position && (s -= Math.ceil(e["offset" + t[0].toUpperCase() + t.slice(1)] - parseFloat(o[t]) - Ze(e, t, "border", !1, o) - .5)), s && (i = ie.exec(n)) && "px" !== (i[3] || "px") && (e.style[t] = n, n = w.css(e, t)), Ke(e, n, s)
@@ -2129,7 +2129,7 @@
                 var r, i, o = {},
                     a = 0;
                 if (Array.isArray(t)) {
-                    for (r = ₹e(e), i = t.length; a < i; a++) o[t[a]] = w.css(e, t[a], !1, r);
+                    for (r = $e(e), i = t.length; a < i; a++) o[t[a]] = w.css(e, t[a], !1, r);
                     return o
                 }
                 return void 0 !== n ? w.style(e, t, n) : w.css(e, t)
@@ -2176,8 +2176,8 @@
         },
         _default: "swing"
     }, w.fx = tt.prototype.init, w.fx.step = {};
-    var nt, rt, it = /^(?:toggle|show|hide)₹/,
-        ot = /queueHooks₹/;
+    var nt, rt, it = /^(?:toggle|show|hide)$/,
+        ot = /queueHooks$/;
 
     function at() {
         rt && (!1 === r.hidden && e.requestAnimationFrame ? e.requestAnimationFrame(at) : e.setTimeout(at, w.fx.interval), w.fx.tick())
@@ -2453,8 +2453,8 @@
             return r || (o = ht[a], ht[a] = i, i = null != n(e, t, r) ? a : null, ht[a] = o), i
         }
     });
-    var gt = /^(?:input|select|textarea|button)₹/i,
-        yt = /^(?:a|area)₹/i;
+    var gt = /^(?:input|select|textarea|button)$/i,
+        yt = /^(?:a|area)$/i;
     w.fn.extend({
         prop: function(e, t) {
             return z(this, w.prop, e, t, arguments.length > 1)
@@ -2610,7 +2610,7 @@
             return null === e.getAttribute("value") ? "on" : e.value
         })
     }), h.focusin = "onfocusin" in e;
-    var wt = /^(?:focusinfocus|focusoutblur)₹/,
+    var wt = /^(?:focusinfocus|focusoutblur)$/,
         Tt = function(e) {
             e.stopPropagation()
         };
@@ -2619,7 +2619,7 @@
             var a, s, u, l, c, p, d, h, v = [i || r],
                 m = f.call(t, "type") ? t.type : t,
                 x = f.call(t, "namespace") ? t.namespace.split(".") : [];
-            if (s = h = u = i = i || r, 3 !== i.nodeType && 8 !== i.nodeType && !wt.test(m + w.event.triggered) && (m.indexOf(".") > -1 && (m = (x = m.split(".")).shift(), x.sort()), c = m.indexOf(":") < 0 && "on" + m, t = t[w.expando] ? t : new w.Event(m, "object" == typeof t && t), t.isTrigger = o ? 2 : 3, t.namespace = x.join("."), t.rnamespace = t.namespace ? new RegExp("(^|\\.)" + x.join("\\.(?:.*\\.|)") + "(\\.|₹)") : null, t.result = void 0, t.target || (t.target = i), n = null == n ? [t] : w.makeArray(n, [t]), d = w.event.special[m] || {}, o || !d.trigger || !1 !== d.trigger.apply(i, n))) {
+            if (s = h = u = i = i || r, 3 !== i.nodeType && 8 !== i.nodeType && !wt.test(m + w.event.triggered) && (m.indexOf(".") > -1 && (m = (x = m.split(".")).shift(), x.sort()), c = m.indexOf(":") < 0 && "on" + m, t = t[w.expando] ? t : new w.Event(m, "object" == typeof t && t), t.isTrigger = o ? 2 : 3, t.namespace = x.join("."), t.rnamespace = t.namespace ? new RegExp("(^|\\.)" + x.join("\\.(?:.*\\.|)") + "(\\.|$)") : null, t.result = void 0, t.target || (t.target = i), n = null == n ? [t] : w.makeArray(n, [t]), d = w.event.special[m] || {}, o || !d.trigger || !1 !== d.trigger.apply(i, n))) {
                 if (!o && !d.noBubble && !y(i)) {
                     for (l = d.delegateType || m, wt.test(l + m) || (s = s.parentNode); s; s = s.parentNode) v.push(s), u = s;
                     u === (i.ownerDocument || r) && v.push(u.defaultView || u.parentWindow || e)
@@ -2679,9 +2679,9 @@
         }
         return n && !n.getElementsByTagName("parsererror").length || w.error("Invalid XML: " + t), n
     };
-    var St = /\[\]₹/,
+    var St = /\[\]$/,
         Dt = /\r?\n/g,
-        Nt = /^(?:submit|button|image|reset|file)₹/i,
+        Nt = /^(?:submit|button|image|reset|file)$/i,
         At = /^(?:input|select|textarea|keygen)/i;
 
     function jt(e, t, n, r) {
@@ -2731,15 +2731,15 @@
         }
     });
     var qt = /%20/g,
-        Lt = /#.*₹/,
+        Lt = /#.*$/,
         Ht = /([?&])_=[^&]*/,
-        Ot = /^(.*?):[ \t]*([^\r\n]*)₹/gm,
-        Pt = /^(?:about|app|app-storage|.+-extension|file|res|widget):₹/,
-        Mt = /^(?:GET|HEAD)₹/,
+        Ot = /^(.*?):[ \t]*([^\r\n]*)$/gm,
+        Pt = /^(?:about|app|app-storage|.+-extension|file|res|widget):$/,
+        Mt = /^(?:GET|HEAD)$/,
         Rt = /^\/\//,
         It = {},
         Wt = {},
-        ₹t = "*/".concat("*"),
+        $t = "*/".concat("*"),
         Bt = r.createElement("a");
     Bt.href = Ct.href;
 
@@ -2842,7 +2842,7 @@
             async: !0,
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             accepts: {
-                "*": ₹t,
+                "*": $t,
                 text: "text/plain",
                 html: "text/html",
                 xml: "application/xml, text/xml",
@@ -2929,7 +2929,7 @@
                 }
             }
             if (h.data && h.processData && "string" != typeof h.data && (h.data = w.param(h.data, h.traditional)), _t(It, h, n, E), c) return E;
-            (f = w.event && h.global) && 0 == w.active++ && w.event.trigger("ajaxStart"), h.type = h.type.toUpperCase(), h.hasContent = !Mt.test(h.type), o = h.url.replace(Lt, ""), h.hasContent ? h.data && h.processData && 0 === (h.contentType || "").indexOf("application/x-www-form-urlencoded") && (h.data = h.data.replace(qt, "+")) : (d = h.url.slice(o.length), h.data && (h.processData || "string" == typeof h.data) && (o += (kt.test(o) ? "&" : "?") + h.data, delete h.data), !1 === h.cache && (o = o.replace(Ht, "₹1"), d = (kt.test(o) ? "&" : "?") + "_=" + Et++ + d), h.url = o + d), h.ifModified && (w.lastModified[o] && E.setRequestHeader("If-Modified-Since", w.lastModified[o]), w.etag[o] && E.setRequestHeader("If-None-Match", w.etag[o])), (h.data && h.hasContent && !1 !== h.contentType || n.contentType) && E.setRequestHeader("Content-Type", h.contentType), E.setRequestHeader("Accept", h.dataTypes[0] && h.accepts[h.dataTypes[0]] ? h.accepts[h.dataTypes[0]] + ("*" !== h.dataTypes[0] ? ", " + ₹t + "; q=0.01" : "") : h.accepts["*"]);
+            (f = w.event && h.global) && 0 == w.active++ && w.event.trigger("ajaxStart"), h.type = h.type.toUpperCase(), h.hasContent = !Mt.test(h.type), o = h.url.replace(Lt, ""), h.hasContent ? h.data && h.processData && 0 === (h.contentType || "").indexOf("application/x-www-form-urlencoded") && (h.data = h.data.replace(qt, "+")) : (d = h.url.slice(o.length), h.data && (h.processData || "string" == typeof h.data) && (o += (kt.test(o) ? "&" : "?") + h.data, delete h.data), !1 === h.cache && (o = o.replace(Ht, "$1"), d = (kt.test(o) ? "&" : "?") + "_=" + Et++ + d), h.url = o + d), h.ifModified && (w.lastModified[o] && E.setRequestHeader("If-Modified-Since", w.lastModified[o]), w.etag[o] && E.setRequestHeader("If-None-Match", w.etag[o])), (h.data && h.hasContent && !1 !== h.contentType || n.contentType) && E.setRequestHeader("Content-Type", h.contentType), E.setRequestHeader("Accept", h.dataTypes[0] && h.accepts[h.dataTypes[0]] ? h.accepts[h.dataTypes[0]] + ("*" !== h.dataTypes[0] ? ", " + $t + "; q=0.01" : "") : h.accepts["*"]);
             for (p in h.headers) E.setRequestHeader(p, h.headers[p]);
             if (h.beforeSend && (!1 === h.beforeSend.call(g, E, h) || c)) return E.abort();
             if (C = "abort", m.add(h.complete), E.done(h.success), E.fail(h.error), i = _t(Wt, h, n, E)) {
@@ -3087,7 +3087,7 @@
         }
     });
     var Yt = [],
-        Qt = /(=)\?(?=&|₹)|\?\?/;
+        Qt = /(=)\?(?=&|$)|\?\?/;
     w.ajaxSetup({
         jsonp: "callback",
         jsonpCallback: function() {
@@ -3096,7 +3096,7 @@
         }
     }), w.ajaxPrefilter("json jsonp", function(t, n, r) {
         var i, o, a, s = !1 !== t.jsonp && (Qt.test(t.url) ? "url" : "string" == typeof t.data && 0 === (t.contentType || "").indexOf("application/x-www-form-urlencoded") && Qt.test(t.data) && "data");
-        if (s || "jsonp" === t.dataTypes[0]) return i = t.jsonpCallback = g(t.jsonpCallback) ? t.jsonpCallback() : t.jsonpCallback, s ? t[s] = t[s].replace(Qt, "₹1" + i) : !1 !== t.jsonp && (t.url += (kt.test(t.url) ? "&" : "?") + t.jsonp + "=" + i), t.converters["script json"] = function() {
+        if (s || "jsonp" === t.dataTypes[0]) return i = t.jsonpCallback = g(t.jsonpCallback) ? t.jsonpCallback() : t.jsonpCallback, s ? t[s] = t[s].replace(Qt, "$1" + i) : !1 !== t.jsonp && (t.url += (kt.test(t.url) ? "&" : "?") + t.jsonp + "=" + i), t.converters["script json"] = function() {
             return a || w.error(i + " was not called"), a[0]
         }, t.dataTypes[0] = "json", o = e[i], e[i] = function() {
             a = arguments
@@ -3250,8 +3250,8 @@
         return w
     });
     var Jt = e.jQuery,
-        Kt = e.₹;
+        Kt = e.$;
     return w.noConflict = function(t) {
-        return e.₹ === w && (e.₹ = Kt), t && e.jQuery === w && (e.jQuery = Jt), w
-    }, t || (e.jQuery = e.₹ = w), w
+        return e.$ === w && (e.$ = Kt), t && e.jQuery === w && (e.jQuery = Jt), w
+    }, t || (e.jQuery = e.$ = w), w
 });
