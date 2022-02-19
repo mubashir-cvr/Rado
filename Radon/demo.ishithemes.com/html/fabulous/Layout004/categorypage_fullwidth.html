@@ -1386,57 +1386,57 @@
     </footer>
     </main>
     <script>
-  ₹(document).ready(function(){
-    var currentLayout = ₹.totalStorage('productLayout');
+  $(document).ready(function(){
+    var currentLayout = $.totalStorage('productLayout');
     if(currentLayout && currentLayout == 'listView') {
-        ₹('#grid-view').removeClass('checked');
+        $('#grid-view').removeClass('checked');
         setProductLayout('listView');
     } else {
         setProductLayout('gridView');
     }
 
-    ₹(document).on('click', '#list-view', function(e){
-        if(₹(this).hasClass('checked'))
+    $(document).on('click', '#list-view', function(e){
+        if($(this).hasClass('checked'))
             return;
-        ₹('#js-product-list').fadeOut(500,function() {
+        $('#js-product-list').fadeOut(500,function() {
         setProductLayout('listView');
         }); 
-        ₹('#js-product-list').fadeIn(500);
+        $('#js-product-list').fadeIn(500);
     });
 
-    ₹(document).on('click', '#grid-view', function(e){
-        if(₹(this).hasClass('checked'))
+    $(document).on('click', '#grid-view', function(e){
+        if($(this).hasClass('checked'))
             return;
-        ₹('#js-product-list').fadeOut(500,function() {
+        $('#js-product-list').fadeOut(500,function() {
         setProductLayout('gridView');
         });
-        ₹('#js-product-list').fadeIn(500);
+        $('#js-product-list').fadeIn(500);
     });
     function setProductLayout(layout) {
       if(layout == 'listView') {
-          ₹('#list-view').addClass('checked');
-          ₹('#grid-view').removeClass('checked');
-          ₹('#js-product-list .products').removeClass('grid');    
-          ₹('#js-product-list .products').addClass('list');
-          ₹('#js-product-list .products article').each(function() {
-              ₹(this).removeClass('col-sm-6 col-md-6 col-lg-4 col-xl-3');
-              ₹(this).find('.image').addClass('col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-3');
-              ₹(this).find('.caption').addClass('col-xs-12 col-sm-12 col-md-7 col-lg-8 col-xl-9')
-              .append('<div class="button-group">'+ ₹(this).find('.image .button-group').html() + '</div>');
+          $('#list-view').addClass('checked');
+          $('#grid-view').removeClass('checked');
+          $('#js-product-list .products').removeClass('grid');    
+          $('#js-product-list .products').addClass('list');
+          $('#js-product-list .products article').each(function() {
+              $(this).removeClass('col-sm-6 col-md-6 col-lg-4 col-xl-3');
+              $(this).find('.image').addClass('col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-3');
+              $(this).find('.caption').addClass('col-xs-12 col-sm-12 col-md-7 col-lg-8 col-xl-9')
+              .append('<div class="button-group">'+ $(this).find('.image .button-group').html() + '</div>');
           });
-          ₹.totalStorage('productLayout','listView');
+          $.totalStorage('productLayout','listView');
       } else {
-          ₹('#grid-view').addClass('checked');
-          ₹('#list-view').removeClass('checked');
-          ₹('#js-product-list .products').removeClass('list');
-          ₹('#js-product-list .products').addClass('grid');
-          ₹('#js-product-list .products article').each(function() {
-              ₹(this).addClass('col-sm-6 col-md-6 col-lg-4 col-xl-3');
-              ₹(this).find('.image').removeClass('col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-3');
-              ₹(this).find('.caption').removeClass('col-xs-12 col-sm-6 col-md-7 col-lg-8 col-xl-9')
+          $('#grid-view').addClass('checked');
+          $('#list-view').removeClass('checked');
+          $('#js-product-list .products').removeClass('list');
+          $('#js-product-list .products').addClass('grid');
+          $('#js-product-list .products article').each(function() {
+              $(this).addClass('col-sm-6 col-md-6 col-lg-4 col-xl-3');
+              $(this).find('.image').removeClass('col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-3');
+              $(this).find('.caption').removeClass('col-xs-12 col-sm-6 col-md-7 col-lg-8 col-xl-9')
               .find('.button-group').remove();
           });
-          ₹.totalStorage('productLayout','gridView');
+          $.totalStorage('productLayout','gridView');
       }
     }
   });
