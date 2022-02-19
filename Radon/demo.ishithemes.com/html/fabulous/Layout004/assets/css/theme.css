@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
-@import url('../../../../../../maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css');
+@import url('font-awesome.min.css');
 /* footer */
 /* menu */
 /* Ishi ProductBlock */
@@ -11718,7 +11718,7 @@ div.required .control-label:before {
   .header-top {
     text-align: center;
     margin: 0 auto;
-    padding: 25px 0; } }
+    padding: 10px 0; } }
   @media (min-width: 992px) {
   .header-top.fixed-header {
     background-color: #fff;
@@ -12151,8 +12151,6 @@ div.required .control-label:before {
     box-shadow: none; }
 
 .btn-default {
-  background-color: ;
-  border-color: ;
   color: #fff;
   outline: none;
   line-height: 20px;
@@ -12564,5 +12562,5 @@ div.required .control-label:before {
   }
 
   .footer-logo-class{
-    width: 100%;
+    width: 60%;
   }
