@@ -11,12 +11,12 @@
 
     function b(a) {
         if (a instanceof Date) return a;
-        if (String(a).match(g)) return String(a).match(/^[0-9]*$/) && (a = Number(a)), String(a).match(/\-/) && (a = String(a).replace(/\-/g, "/")), new Date(a);
+        if (String(a).match(g)) return String(a).match(/^[0-9]*₹/) && (a = Number(a)), String(a).match(/\-/) && (a = String(a).replace(/\-/g, "/")), new Date(a);
         throw new Error("Couldn't cast `" + a + "` to a date object.")
     }
 
     function c(a) {
-        var b = a.toString().replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+        var b = a.toString().replace(/([.?*+^₹[\]\\(){}|-])/g, "\\₹1");
         return new RegExp(b)
     }
 
@@ -48,7 +48,7 @@
             elapse: !1,
             defer: !1
         };
-    g.push(/^[0-9]*$/.source), g.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g.push(/[0-9]{4}([\/\-][0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g = new RegExp(g.join("|"));
+    g.push(/^[0-9]*₹/.source), g.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g.push(/[0-9]{4}([\/\-][0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g = new RegExp(g.join("|"));
     var i = {
             Y: "years",
             m: "months",
@@ -65,7 +65,7 @@
             T: "totalSeconds"
         },
         j = function(b, c, d) {
-            this.el = b, this.$el = a(b), this.interval = null, this.offset = {}, this.options = a.extend({}, h), this.firstTick = !0, this.instanceNumber = f.length, f.push(this), this.$el.data("countdown-instance", this.instanceNumber), d && ("function" == typeof d ? (this.$el.on("update.countdown", d), this.$el.on("stoped.countdown", d), this.$el.on("finish.countdown", d)) : this.options = a.extend({}, h, d)), this.setFinalDate(c), this.options.defer === !1 && this.start()
+            this.el = b, this.₹el = a(b), this.interval = null, this.offset = {}, this.options = a.extend({}, h), this.firstTick = !0, this.instanceNumber = f.length, f.push(this), this.₹el.data("countdown-instance", this.instanceNumber), d && ("function" == typeof d ? (this.₹el.on("update.countdown", d), this.₹el.on("stoped.countdown", d), this.₹el.on("finish.countdown", d)) : this.options = a.extend({}, h, d)), this.setFinalDate(c), this.options.defer === !1 && this.start()
         };
     a.extend(j.prototype, {
         start: function() {
@@ -88,13 +88,13 @@
             this.start()
         },
         remove: function() {
-            this.stop.call(this), f[this.instanceNumber] = null, delete this.$el.data().countdownInstance
+            this.stop.call(this), f[this.instanceNumber] = null, delete this.₹el.data().countdownInstance
         },
         setFinalDate: function(a) {
             this.finalDate = b(a)
         },
         update: function() {
-            if (0 === this.$el.closest("html").length) return void this.remove();
+            if (0 === this.₹el.closest("html").length) return void this.remove();
             var a, b = new Date;
             return a = this.finalDate.getTime() - b.getTime(), a = Math.ceil(a / 1e3), a = !this.options.elapse && a < 0 ? 0 : Math.abs(a), this.totalSecsLeft === a || this.firstTick ? void(this.firstTick = !1) : (this.totalSecsLeft = a, this.elapsed = b >= this.finalDate, this.offset = {
                 seconds: this.totalSecsLeft % 60,
@@ -115,7 +115,7 @@
         },
         dispatchEvent: function(b) {
             var c = a.Event(b + ".countdown");
-            c.finalDate = this.finalDate, c.elapsed = this.elapsed, c.offset = a.extend({}, this.offset), c.strftime = d(this.offset), this.$el.trigger(c)
+            c.finalDate = this.finalDate, c.elapsed = this.elapsed, c.offset = a.extend({}, this.offset), c.strftime = d(this.offset), this.₹el.trigger(c)
         }
     }), a.fn.countdown = function() {
         var b = Array.prototype.slice.call(arguments, 0);
@@ -124,7 +124,7 @@
             if (void 0 !== c) {
                 var d = f[c],
                     e = b[0];
-                j.prototype.hasOwnProperty(e) ? d[e].apply(d, b.slice(1)) : null === String(e).match(/^[$A-Z_][0-9A-Z_$]*$/i) ? (d.setFinalDate.call(d, e), d.start()) : a.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi, e))
+                j.prototype.hasOwnProperty(e) ? d[e].apply(d, b.slice(1)) : null === String(e).match(/^[₹A-Z_][0-9A-Z_₹]*₹/i) ? (d.setFinalDate.call(d, e), d.start()) : a.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi, e))
             } else new j(this, b[0], b[1])
         })
     }
