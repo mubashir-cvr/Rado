@@ -132,16 +132,16 @@
   </div>
   <!-- Breadcrumb -->
   <script>
-     $(document).ready(function () { 
-      if($('#passwordpage_header .password_deal').data('deal') == '1') {
-          var time = $('#passwordpage_header .password_deal').data('counter');
-          var container = $(this).find('#storecountdown');
+     ₹(document).ready(function () { 
+      if(₹('#passwordpage_header .password_deal').data('deal') == '1') {
+          var time = ₹('#passwordpage_header .password_deal').data('counter');
+          var container = ₹(this).find('#storecountdown');
           
-          $(container).countdown(time, function(event) {
-              $(this).find(".countdown-days .data").html(event.strftime('%D'));
-              $(this).find(".countdown-hours .data").html(event.strftime('%H'));
-              $(this).find(".countdown-minutes .data").html(event.strftime('%M'));
-              $(this).find(".countdown-seconds .data").html(event.strftime('%S'));
+          ₹(container).countdown(time, function(event) {
+              ₹(this).find(".countdown-days .data").html(event.strftime('%D'));
+              ₹(this).find(".countdown-hours .data").html(event.strftime('%H'));
+              ₹(this).find(".countdown-minutes .data").html(event.strftime('%M'));
+              ₹(this).find(".countdown-seconds .data").html(event.strftime('%S'));
               ;
           });
       }
